@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+ <head>
+ 
+ </head>
+ 
+ <body>
+  <h1 align="center">Student Enquiry</h1>
+  <hr/>
+  
+   <form th:action= "@{/submitEnquiry}" th:object=${enquiryDTO} method="POST">
+    <input type="hidden" th:field="*{id}">
+    <label>Name</label>
+    <input type="text" th:field="*{studentName}">
+    <br/>
+    <label>Course Name</label>
+    <select th:field="*{courseName}">
+     <option th:value="'none'"  th:text="'None'">select your course</option>
+     <option th:value="'SHB'" th:text="'Spring + Hibernate bootcamp'">option 1</option>
+      <option th:value="'JB'" th:text="'Java J2EE Bootcamp'">option 2</option>
+    </select>
+    <br/>
+    <label>Exp</label>
+    <input type="text"  th:field="*{exp}">
+    
+    <br/>
+    
+    <input type="submit" value="Enquiry">
+   
+   
+   </form>
+  
+  
+ </body>
+</html>
+
+
+

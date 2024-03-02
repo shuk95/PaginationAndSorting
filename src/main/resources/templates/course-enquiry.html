@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+
+<body>
+<h1 align="center">Course Enquiry List</h1>
+<hr/>
+
+<div class="container">
+    <!-- allCourseEnquiryList -->
+
+    <table class="table table-striped">
+        <thead class="table-dark">
+        <tr>
+            <td><a th:href="@{/page(pageNum=${pageInfo.currentPage},sortField='studentName',sortDir=${reverseSort})} " href="#">Student Name</a></td>
+            <td><a th:href="@{/page(pageNum=${pageInfo.currentPage},sortField='courseName',sortDir=${reverseSort})} " href="#">Course Name</a></td>
+            <td><a th:href="@{/page(pageNum=${pageInfo.currentPage},sortField='exp',sortDir=${reverseSort})} " href="#">Experience</td>
+        </tr>
+
+
+        </thead>
+        <tbody th:each="temp : ${allCourseEnquiryList}">
+        <tr>
+            <td th:text="${temp.studentName}">Random name</td>
+            <td th:text="${temp.courseName}">Random course</td>
+            <td th:text="${temp.exp}">Random Exp</td>
+            <td><a href="#" th:href="@{/updateEnquiry(studentId =${temp.id})}">Update</a></td>
+        </tr>
+
+
+
+        </tbody>
+
+
+    </table>
+<div>
+    Page size - [[${pageInfo.pageSize}]] | Total Reocrds - [[${pageInfo.totalRecords}]] | Showing - [[${pageInfo.currentPage}]] of [[${pageInfo.totalPages}]]
+    |
+    <a th:if="${pageInfo.currentPage != 1}" th:href="@{/page(pageNum=1,sortField=${sortField}, sortDir=${sortDir})}" href="#">First</a>
+    <span th:if="${pageInfo.currentPage == 1}">First</span>
+    |
+    <a th:if="${pageInfo.currentPage > 1 }" th:href="@{/page(pageNum=${pageInfo.currentPage} - 1,sortField=${sortField}, sortDir=${sortDir})}" href="#">Previous</a>
+    <span th:if="${pageInfo.currentPage == 1}">Previous</span>
+    |
+    <span th:each="i : ${#numbers.sequence(1,pageInfo.totalPages)}">
+        <a th:if="${i != pageInfo.currentPage}" th:href="@{page(pageNum=${i},sortField=${sortField}, sortDir=${sortDir})}" href="#"> [[${i}]]</a>
+        <span th:if="${i == pageInfo.currentPage}">[[${i}]]</span> &nbsp;
+    </span>
+    |
+    <a th:if="${pageInfo.currentPage < pageInfo.totalPages }" th:href="@{/page(pageNum=${pageInfo.currentPage} + 1,sortField=${sortField}, sortDir=${sortDir})}" href="#">Next</a>
+    <span th:if="${pageInfo.currentPage == pageInfo.totalPages}">Next</span>
+    |
+    <a th:if="${pageInfo.currentPage != pageInfo.totalPages }" th:href="@{/page(pageNum=${pageInfo.totalPages},sortField=${sortField}, sortDir=${sortDir})}" href="#">Last</a>
+    <span th:if="${pageInfo.currentPage == pageInfo.totalPages}">Last</span>
+
+
+
+</div>
+</div>
+
+</body>
+</html>
+
+
+
